@@ -2,7 +2,7 @@
 # replace STM32F429ZITx with your chip as listed in `probe-rs chip list`
 runner = "probe-rs run --chip STM32F401RETx"
 # rustflags = [
-#     "-Clink-arg=-Tlinker.ld", "-Cforce-frame-pointers=yes"
+#     "-Clink-arg=-Tmemory.x"
 # ]
 
 [build]

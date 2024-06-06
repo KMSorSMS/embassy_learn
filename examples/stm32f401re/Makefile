@@ -5,6 +5,9 @@ OBJCOPY := rust-objcopy --binary-architecture=arm
 
 ENTRY_PA := 0x08000000
 
+build:
+	cargo build --release
+
 bin: $(TARGET)
 	@echo "Build done"
 
@@ -14,3 +17,5 @@ debug:
 	openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c init -c "halt" -c "flash write_image erase target/thumbv7em-none-eabi/release/${TARGET}.bin 0x8000000"
 download:
 	openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c init -c "halt" -c "flash write_image erase target/thumbv7em-none-eabi/release/embassy-stm32f401re-examples.bin 0x8000000" -c "reset" -c "shutdown"
+clean:
+	cargo clean
