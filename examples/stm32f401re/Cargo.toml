@@ -6,7 +6,7 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 # Change stm32f429zi to your chip name, if necessary.
-embassy-stm32 = { version = "0.1.0", path = "../../embassy-stm32", features = ["defmt","stm32f401re", "time-driver-any"] }
+embassy-stm32 = { version = "0.1.0", path = "../../embassy-stm32", features = ["defmt","stm32f401re", "time-driver-tim3"] }
 embassy-executor = { version = "0.5.0", path = "../../embassy-executor", features = ["defmt", "integrated-timers", "arch-cortex-m", "executor-thread"] }
 embassy-time = { version = "0.3.0", path = "../../embassy-time", features = ["defmt"] }
 
