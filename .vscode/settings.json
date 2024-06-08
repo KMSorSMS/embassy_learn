@@ -58,4 +58,11 @@
     "examples/stm32f401re/Cargo.toml",
 
   ],
+  "terminal.integrated.profiles.linux": {
+    "zsh": {
+      "path": "zsh",
+      "args": []
+    }
+  },
+  "terminal.integrated.defaultProfile.linux": "zsh",
 }

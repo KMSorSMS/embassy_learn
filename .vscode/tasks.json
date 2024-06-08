@@ -1,4 +1,5 @@
 {
+    "version": "2.0.0",
     "tasks": [
         {
             "type": "cargo",
@@ -14,6 +15,36 @@
             "options": {
                 "cwd": "${workspaceFolder}/examples/stm32f401re"
             },
-        }
+        },
+        {
+            "type": "cargo",
+            "command": "build",
+            "problemMatcher": [
+                "$rustc"
+            ],
+            "args": [
+                // "--release"
+            ],
+            "group": "build",
+            "label": "build stm32f401re debug",
+            "options": {
+                "cwd": "${workspaceFolder}/examples/stm32f401re"
+            },
+        },
+        {
+            "type": "cargo",
+            "command": "build",
+            "problemMatcher": [
+                "$rustc"
+            ],
+            "args": [
+                "--release"
+            ],
+            "group": "build",
+            "label": "build stm32f401re release",
+            "options": {
+                "cwd": "${workspaceFolder}/examples/stm32f401re"
+            },
+        },
     ]
 }
