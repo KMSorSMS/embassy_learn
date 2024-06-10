@@ -71,7 +71,7 @@ use {defmt_rtt as _, panic_probe as _};
 async fn run_high() {
     loop {
         info!("        [high] tick!");
-        Timer::after_ticks(27374).await;
+        Timer::after_millis(3000).await;
     }
 }
 
@@ -82,13 +82,13 @@ async fn run_med() {
         info!("    [med] Starting long computation");
 
         // Spin-wait to simulate a long CPU computation
-        cortex_m::asm::delay(8_000_000); // ~1 second
+        cortex_m::asm::delay(8_000_000*8); // ~1 second
 
         let end = Instant::now();
-        let ms = end.duration_since(start).as_ticks() / 33;
+        let ms = end.duration_since(start).as_millis();
         info!("    [med] done in {} ms", ms);
 
-        Timer::after_ticks(23421).await;
+        Timer::after_millis(3000).await;
     }
 }
 
@@ -99,13 +99,13 @@ async fn run_low() {
         info!("[low] Starting long computation");
 
         // Spin-wait to simulate a long CPU computation
-        cortex_m::asm::delay(16_000_000); // ~2 seconds
+        cortex_m::asm::delay(16_000_000*8); // ~2 seconds
 
         let end = Instant::now();
-        let ms = end.duration_since(start).as_ticks() / 33;
+        let ms = end.duration_since(start).as_millis();
         info!("[low] done in {} ms", ms);
 
-        Timer::after_ticks(32983).await;
+        Timer::after_millis(3000).await;
     }
 }
 
@@ -164,7 +164,7 @@ fn main() -> ! {
     // In this case we’re using UART4 and UART5, but there’s nothing special about them. Any otherwise unused interrupt
     // vector would work exactly the same.
 
-    // High-priority executor: UART4, priority level 6
+    // High-priority executor: USART1, priority level 6
     interrupt::USART1.set_priority(Priority::P6);
     let spawner = EXECUTOR_HIGH.start(interrupt::USART1);
     unwrap!(spawner.spawn(run_high()));
@@ -183,7 +183,6 @@ fn main() -> ! {
 
 // #![no_std]
 // #![no_main]
-// // #![feature(impl_trait_in_assoc_type)]
 
 // use defmt::*;
 // use embassy_executor::Spawner;
@@ -233,10 +232,10 @@ fn main() -> ! {
 //     loop {
 //         info!("high");
 //         led.set_high();
-//         Timer::after_millis(300).await;
+//         Timer::after_millis(5000).await;
 
 //         info!("low");
 //         led.set_low();
-//         Timer::after_millis(300).await;
+//         Timer::after_millis(5000).await;
 //     }
 // }

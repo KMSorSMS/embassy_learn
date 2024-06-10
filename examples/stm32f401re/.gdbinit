@@ -1,6 +1,6 @@
 b *0x08000000
 b main
-# start -y
+start -y
 
 define dss
   dashboard source -output /dev/pts/$arg0
