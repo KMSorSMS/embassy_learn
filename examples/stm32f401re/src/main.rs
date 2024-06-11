@@ -192,8 +192,7 @@ fn main() -> ! {
 // };
 // use embassy_time::Timer;
 // use stm32_metapac::rcc::vals;
-// use {defmt_rtt as _, panic_probe as _};
-// #[embassy_executor::main]
+// use {defmt_rtt as _, panic_probe as _};#[embassy_executor::main]
 // async fn main(_spawner: Spawner) {
 //     // let p = embassy_stm32::init(Default::default());
 //     // we use 84Mhz sys from 8Mhz HSE with
@@ -232,10 +231,10 @@ fn main() -> ! {
 //     loop {
 //         info!("high");
 //         led.set_high();
-//         Timer::after_millis(5000).await;
+//         Timer::after_millis(1000).await;
 
 //         info!("low");
 //         led.set_low();
-//         Timer::after_millis(5000).await;
+//         Timer::after_millis(1000).await;
 //     }
 // }

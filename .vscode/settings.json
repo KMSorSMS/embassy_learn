@@ -65,4 +65,5 @@
     }
   },
   "terminal.integrated.defaultProfile.linux": "zsh",
+  "cortex-debug.variableUseNaturalFormat": true,
 }
