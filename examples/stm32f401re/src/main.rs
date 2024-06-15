@@ -71,7 +71,18 @@ use {defmt_rtt as _, panic_probe as _};
 async fn run_high() {
     loop {
         info!("        [high] tick!");
+        // Timer::after_millis(3000).await;
+        let start = Instant::now();
+        info!("    [high] Starting long computation");
+
+        // Spin-wait to simulate a long CPU computation
+        cortex_m::asm::delay(8_000_000*8); // ~1 second
+
+        let end = Instant::now();
+        let ms = end.duration_since(start).as_millis();
+        info!("    [high] done in {} ms", ms);
         Timer::after_millis(3000).await;
+
     }
 }
 
@@ -88,7 +99,7 @@ async fn run_med() {
         let ms = end.duration_since(start).as_millis();
         info!("    [med] done in {} ms", ms);
 
-        Timer::after_millis(3000).await;
+        // Timer::after_millis(3000).await;
     }
 }
 
@@ -153,11 +164,8 @@ fn main() -> ! {
     let mut config = embassy_stm32::Config::default();
     config.rcc = rcc;
 
-
     let _p = embassy_stm32::init(config);
     info!("Hello World!");
-
-
 
     // STM32s don’t have any interrupts exclusively for software use, but they can all be triggered by software as well as
     // by the peripheral, so we can just use any free interrupt vectors which aren’t used by the rest of your application.
@@ -192,7 +200,8 @@ fn main() -> ! {
 // };
 // use embassy_time::Timer;
 // use stm32_metapac::rcc::vals;
-// use {defmt_rtt as _, panic_probe as _};#[embassy_executor::main]
+// use {defmt_rtt as _, panic_probe as _};
+// #[embassy_executor::main]
 // async fn main(_spawner: Spawner) {
 //     // let p = embassy_stm32::init(Default::default());
 //     // we use 84Mhz sys from 8Mhz HSE with
@@ -221,7 +230,6 @@ fn main() -> ! {
 
 //     let mut config = embassy_stm32::Config::default();
 //     config.rcc = rcc;
-
 
 //     let p = embassy_stm32::init(config);
 //     info!("Hello World!");
